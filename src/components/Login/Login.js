@@ -4,17 +4,32 @@ import { Form, Button } from "react-bootstrap";
 const Login = () => {
 
     const [name, setName] = useState("");
+    
 
     function validateForm() { //validate user input
         return name.length > 0;
     };
 
-    function onSubmitClicked(e){ //set name to props
+    const onSubmitClicked = async (e) =>{ //set name to props
         console.log(e.target.value)
+        console.log("hej")
+         try {
+            const response = await fetch('http://localhost:3004/profile', {
+            metod: 'POST',
+            body: JSON.stringify({
+                name: e.target.value
+            })
+        })
+        const content = await response.json();
+        } catch (error) {
+            console.log('Error: ', error)
+        } 
+
     };
 
     function onNameChanged(e){ //set input username to name state
         setName(e.target.value.trim());
+        
     }
 
     return (
