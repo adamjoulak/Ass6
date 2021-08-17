@@ -5,7 +5,7 @@ const Login = () => {
 
     const [name, setName] = useState("");
 
-    function validateForm() { //validate user input
+    function validateFormEntry() { //validate user input
         return name.length > 0;
     };
 
@@ -26,7 +26,7 @@ const Login = () => {
             <Form.Group>
                 <Form.Control className="mb-3" autoFocus type="username" placeholder="what yo name?"  value={name} onChange={ onNameChanged }/>
             </Form.Group>
-            <Button className="btn btn-primary btn-lg" variant="info" type="submit" disabled={ !validateForm() } onClick={ onSubmitClicked }>Submit</Button>
+            <Button className="btn btn-primary btn-lg" variant="info" type="submit" disabled={ !validateFormEntry() } onClick={ onSubmitClicked }>Submit</Button>
         </Form>
     )
 }

@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 
 import Login from './components/Login/Login.js';
+import NotFound from './components/NotFound/NotFound';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={ Login } />
-         
+          <Route path="*" component={ NotFound } />
         </Switch>
 
       </div> 
