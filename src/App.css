@@ -1,4 +1,20 @@
-.App {
+.font-face-lylas {
+  font-family: "LoveYouLikeASister";
+}
+
+.font-face-si {
+  font-family: "SanchezItalic";
+}
+
+.font-face-sr {
+  font-family: "SanchezRegular";
+}
+
+#body {
+  background-color: #FFC75F;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -36,3 +52,4 @@
     transform: rotate(360deg);
   }
 }
+ */
