@@ -1,9 +1,11 @@
 import { useState } from "react";
+import {useHistory} from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import LogoHello from '../../assets/LostInTranslation_Resources/Logo-Hello.png';
 import './Login.css';
 
-const Login = () => {
+const Login = () => {   
+    const history = useHistory()
 
     const [name, setName] = useState({
         name: ""
@@ -16,25 +18,24 @@ const Login = () => {
         })
     }
 
-/*     const validateFormEntry = () => { //validate user input
-        return name.length > 0;
-    } */
+
 
     const onSubmitClicked = (event) => { //set name to props
-        event.preventDefault() //no reload        
-
+        event.preventDefault() //no reload
+        
         fetch('http://localhost:3004/profile', {
             method: 'POST',
             headers: {"Content-type": "application/json"},
-            body: JSON.stringify(name)
+            body: JSON.stringify([name])
         })
         .then(async (response) => {
             if(!response.ok){
                 const { error = "An unknown error occurred"} = await response.json();
                 throw new Error(error);
             }
-            console.log(JSON.stringify(name) + " added to db!")
+            console.log(JSON.stringify([name]) + " added to db!")
         })
+        history.replace("/translation")
     };
 
     return (

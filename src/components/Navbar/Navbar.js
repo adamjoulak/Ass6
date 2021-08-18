@@ -10,7 +10,7 @@ const Navbar = () => {
                     <p className="font-face-lylas">Lost in Translation</p>
                     </Col>
                     <Col sm={3}>
-                    <p className="SanchezRegular">Login</p>
+                    <p className="font-face-sr">Login</p>
                     </Col>
                 </Row>
 

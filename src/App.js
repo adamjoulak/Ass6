@@ -18,9 +18,10 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Login} />
+        <Route path="/translation" component={Translation} />
+        <Route path="/profile" component={Profile} />
         <Route path="*" component={NotFound} />
-        <Route path='/translation' component={Translation} />
-        <Route path='/profile' component={Profile} />
+        
       </Switch>
 
       
