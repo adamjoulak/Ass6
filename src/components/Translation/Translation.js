@@ -4,10 +4,11 @@ import { useState } from 'react';
 const Translation = () => {
 
     const [sentence, setSentence] = useState({
-        sentence: ""
+        sentence: null
     })
 
-    const handleTranslation = (event) => { //set input username to name state
+    
+    const handleTranslation = (event) => { //set input 
         setSentence({
             ...sentence,
             [event.target.id]: event.target.value
@@ -15,20 +16,23 @@ const Translation = () => {
     }
     const renderPic = () => {
         let str = sentence.sentence.split('');
-        let img = str.map((name, index) => {
-            console.log(name)
-            return <img key={index} className="img-responsive" src={require(`../../assets/LostInTranslation_Resources/individial_signs/${name}.png`)} alt="img" />
+        const img = str.map((key, i) => {
+            return <img key={key} src={`./individial_signs/${i}.png`} alt="img" />            
         });
     }
 
+
     return (
+        /////////////// IMPLEMENT FORM ////////////////////
         <div>
             <div>
                 <input type="text" id="sentence" placeholder="Enter text" onChange={handleTranslation} />
                 <button onClick={renderPic}>RENDER</button>
             </div>
             <div>
-               {img}
+                {sentence.sentence && sentence.sentence.split('').map((i, key) => {
+                    return <img key={key} src={`./individial_signs/${i}.png`} alt="img" />
+                })}                 
             </div>
 
         </div>
