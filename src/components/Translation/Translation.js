@@ -60,7 +60,10 @@ const Translation = () => {
                 <Row>  
                     
                 {imgs && imgs.map((i, key) => {                    
-                   return <img key={key}src={`./individial_signs/${i}`} alt="img" />                    
+                   return <figure>
+                       <img key={key}src={`./individial_signs/${i}`} alt="img" />  
+                       <figcaption><center>{i.charAt(0)}</center></figcaption>
+                       </figure>                  
                 })}
 
                 </Row>
