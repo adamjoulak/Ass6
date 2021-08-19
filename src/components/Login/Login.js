@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import LogoHello from '../../assets/LostInTranslation_Resources/Logo-Hello.png';
 import './Login.css';
+import {setUser} from '../../local-storage/LocalStorage';
 
 const Login = () => {   
     const history = useHistory()
@@ -35,6 +36,7 @@ const Login = () => {
             }
             console.log(JSON.stringify([name]) + " added to db!")
         })
+        setUser(name)
         history.replace("/translation")
     };
 

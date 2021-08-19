@@ -1,13 +1,16 @@
 import './Translation.css';
 import { useState } from 'react';
 import { Form, Button, Row, Col } from "react-bootstrap";
+import {getUser} from '../../local-storage/LocalStorage';
 
 const Translation = () => {
     
+    const isLoggedIn = getUser();
+    console.log(isLoggedIn)
 
     const [sentence, setSentence] = useState([])
 
-     const [imgs, setRenderPics] = useState([]) 
+    const [imgs, setRenderPics] = useState([])
 
 
     const handleTranslation = (event) => { //set input 
@@ -19,15 +22,7 @@ const Translation = () => {
         event.preventDefault() //no reload        
 
         let str = sentence.split('');
-        console.log(str) 
-        /* str.forEach(x => {
-            if(x !== " "){
-                x += x.toLowerCase() + ".png"
-            }else{
-                str.pop(x)
-            }
-                
-        }); */
+        
         for (let i = 0; i < str.length; i++) {
             if(str[i] !== " "){
                 console.log(str[i])
@@ -37,14 +32,28 @@ const Translation = () => {
             }
             
         }
-        console.log(str)
         setRenderPics(str)
+        saveToDatabase(str, /*id*/)
         
+    }
+
+    const saveToDatabase = (str) =>{
+        fetch('http://localhost:3004/translations', {
+            method: 'POST',
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify(str)
+        })
+        .then(async (response) => {
+            if(!response.ok){
+                const { error = "An unknown error occurred"} = await response.json();
+                throw new Error(error);
+            }
+            console.log(JSON.stringify(str) + " added to db!")
+        })
     }
 
 
     return (
-        /////////////// IMPLEMENT FORM ////////////////////
         <div>
             <Form onSubmit={onSubmit}>
                 <Row>
@@ -57,17 +66,19 @@ const Translation = () => {
                         </Button>
                     </Col>
                 </Row>
-                <Row>  
-                    
-                {imgs && imgs.map((i, key) => {                    
+                <Row>                     
+                {imgs && imgs.map((i) => {                    
                    return <figure>
-                       <img key={key}src={`./individial_signs/${i}`} alt="img" />  
+                       <img  src={`./individial_signs/${i}`} alt="img" />  
                        <figcaption><center>{i.charAt(0)}</center></figcaption>
                        </figure>                  
                 })}
 
                 </Row>
             </Form>
+            <div>
+                <button onClick={getUser}>Get user</button>
+            </div>
 
         </div>
     );

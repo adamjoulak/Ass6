@@ -1,6 +1,23 @@
 {
-  "translations": [],
+  "translations": [
+    [
+      "m.png",
+      "a.png",
+      "c.png",
+      "k.png",
+      "e.png"
+    ]
+  ],
   "profile": [
-          
+    [
+      {
+        "name": "Marcus"
+      }
+    ],
+    [
+      {
+        "name": "mamma"
+      }
+    ]
   ]
 }
