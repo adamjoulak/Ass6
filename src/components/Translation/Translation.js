@@ -4,19 +4,13 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import {getUser} from '../../local-storage/LocalStorage';
 
 const Translation = () => {
-    
-    const isLoggedIn = getUser();
-    console.log(isLoggedIn)
 
     const [sentence, setSentence] = useState([])
-
     const [imgs, setRenderPics] = useState([])
-
 
     const handleTranslation = (event) => { //set input 
         setSentence(event.target.value)
     }
-
 
     const onSubmit = (event) => {
         event.preventDefault() //no reload        
@@ -33,23 +27,35 @@ const Translation = () => {
             
         }
         setRenderPics(str)
-        saveToDatabase(str, /*id*/)
+        saveToDatabase(sentence)
         
     }
 
-    const saveToDatabase = (str) =>{
-        fetch('http://localhost:3004/translations', {
-            method: 'POST',
+    const saveToDatabase = async (sentence) =>{
+        let name = getUser();
+        let userData = null;
+        try{
+            const response = await fetch(`http://localhost:3004/profile/${name.name}`)
+            userData = await response.json();
+        }catch(error){
+            console.log(error);
+        }
+        console.log(userData)
+
+        
+
+/*         fetch(`http://localhost:3004/profile/${name.name}`, {
+            method: 'PUT',
             headers: {"Content-type": "application/json"},
-            body: JSON.stringify(str)
+            body: putRequest
         })
         .then(async (response) => {
             if(!response.ok){
                 const { error = "An unknown error occurred"} = await response.json();
                 throw new Error(error);
             }
-            console.log(JSON.stringify(str) + " added to db!")
-        })
+            console.log(putRequest + " added to db!")
+        }) */
     }
 
 
@@ -67,9 +73,9 @@ const Translation = () => {
                     </Col>
                 </Row>
                 <Row>                     
-                {imgs && imgs.map((i) => {                    
+                {imgs && imgs.map((i, key) => {                    
                    return <figure>
-                       <img  src={`./individial_signs/${i}`} alt="img" />  
+                       <img key={key} src={`./individial_signs/${i}`} alt="img" />  
                        <figcaption><center>{i.charAt(0)}</center></figcaption>
                        </figure>                  
                 })}

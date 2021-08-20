@@ -5,7 +5,6 @@ export const setUser = (userName) => {
 export const getUser = () =>{
     let userName = localStorage.getItem('userName');
     if(userName){
-        console.log(JSON.parse(userName))
         return JSON.parse(userName)
     }else{
         return false;
@@ -15,3 +14,4 @@ export const getUser = () =>{
 export const clearUserStorage = ( ) => {
     localStorage.clear();
 }
+    
