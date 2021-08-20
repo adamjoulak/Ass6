@@ -1,6 +1,5 @@
 export const setUser = (userName) => {
     localStorage.setItem('userName', JSON.stringify(userName));
-    console.log("userName set to "+userName)
 }
 
 export const getUser = () =>{

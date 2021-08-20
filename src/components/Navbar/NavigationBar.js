@@ -1,24 +1,22 @@
 import { Redirect } from 'react-router-dom';
 import { useState, useEffect} from "react";
 import { getUser, clearUserStorage } from '../../local-storage/LocalStorage';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function NavigationBar(){
     const history = useHistory();  
-    const [userLoggedIn, setUserLoggedIn] = useState(true);
-    const user = getUser('test');
+    const location = useLocation();
+    const [userLoggedIn, setUserLoggedIn] = useState();
+
 
     useEffect(() => {
-        if(user){ //check if user is logged in
-            setUserLoggedIn(true);
-        }
-    }, [user])
+        setUserLoggedIn(getUser());
+    }, [location])
 
     function clearUserHistory(){ //clear localStore user history and set userLogged in to false
-        clearUserStorage(getUser('test'));
-        setUserLoggedIn(false);
+        clearUserStorage(getUser());
         history.replace("/"); //redirect to login page
     }
 

@@ -9,7 +9,7 @@ const Login = () => {
     const history = useHistory()
 
     const [name, setName] = useState({
-        name: ""
+        name: null
     })
 
     const onNameChanged = (event) =>{ //set input username to name state
@@ -27,14 +27,14 @@ const Login = () => {
         fetch('http://localhost:3004/profile', {
             method: 'POST',
             headers: {"Content-type": "application/json"},
-            body: JSON.stringify([name])
+            body: JSON.stringify(name)
         })
         .then(async (response) => {
             if(!response.ok){
                 const { error = "An unknown error occurred"} = await response.json();
                 throw new Error(error);
             }
-            console.log(JSON.stringify([name]) + " added to db!")
+            console.log(JSON.stringify(name) + " added to db!")
         })
         setUser(name)
         history.replace("/translation")
