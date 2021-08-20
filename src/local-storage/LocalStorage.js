@@ -12,3 +12,7 @@ export const getUser = () =>{
         return false;
     }
 }
+
+export const clearUserStorage = ( ) => {
+    localStorage.clear();
+}

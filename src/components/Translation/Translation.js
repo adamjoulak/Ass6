@@ -77,7 +77,6 @@ const Translation = () => {
                 </Row>
             </Form>
             <div>
-                <button onClick={getUser}>Get user</button>
             </div>
 
         </div>

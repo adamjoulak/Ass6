@@ -9,13 +9,13 @@ import Login from './components/Login/Login.js';
 import NotFound from './components/NotFound/NotFound';
 import Profile from './components/Profile/Profile';
 import Translation from './components/Translation/Translation';
-import Navbar from './components/Navbar/Navbar';
+import NavigationBar from './components/Navbar/NavigationBar';
 
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <NavigationBar />
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/translation" component={Translation} />
