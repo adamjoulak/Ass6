@@ -3,15 +3,18 @@ import {useHistory} from "react-router-dom";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import LogoHello from '../../assets/LostInTranslation_Resources/Logo-Hello.png';
 import './Login.css';
-import {setUser} from '../../local-storage/LocalStorage';
+import {setUserLocalStorage} from '../../local-storage/LocalStorage';
 
 const Login = () => {   
     const history = useHistory()
-
     const [name, setName] = useState({
         name: null
     })
 
+    /**
+     * 
+     * @param {*} event 
+     */
     const onNameChanged = (event) =>{ //set input username to name state
         setName({
             ...name,
@@ -19,8 +22,10 @@ const Login = () => {
         })
     }
 
-
-
+    /**
+     * 
+     * @param {*} event 
+     */
     const onSubmitClicked = (event) => { //set name to props
         event.preventDefault() //no reload
         
@@ -36,7 +41,7 @@ const Login = () => {
             }
             console.log(JSON.stringify(name) + " added to db!")
         })
-        setUser(name)
+        setUserLocalStorage(name)
         history.replace("/translation")
     };
 

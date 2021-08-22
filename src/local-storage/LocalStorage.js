@@ -1,8 +1,8 @@
-export const setUser = (userName) => {
+export const setUserLocalStorage = (userName) => {
     localStorage.setItem('userName', JSON.stringify(userName));
 }
 
-export const getUser = () =>{
+export const getUserLocalStorage = () =>{
     let userName = localStorage.getItem('userName');
     if(userName){
         return JSON.parse(userName)
