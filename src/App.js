@@ -11,8 +11,9 @@ import Profile from './components/Profile/Profile';
 import Translation from './components/Translation/Translation';
 import NavigationBar from './components/Navbar/NavigationBar';
 
-
 function App() {
+
+
   return (
     <BrowserRouter>
       <NavigationBar />

@@ -31,7 +31,7 @@ const Login = () => {
 
         //check if name alreadu exists in database
         try {
-            const response = await fetch(`http://localhost:3004/profile?name=${name.name}`)
+            const response = await fetch(`https://ass6fakeserver-mtl-app.herokuapp.com/profile?name=${name.name}`)
             const data = await response.json()
             if (data.length < 1) {
                 exists = false;
@@ -46,7 +46,7 @@ const Login = () => {
 
         //add name to database if it does not exists in database and set localstorage.
         if (exists === false) {
-            fetch('http://localhost:3004/profile', {
+            fetch('https://ass6fakeserver-mtl-app.herokuapp.com/profile', {
                 method: 'POST',
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({

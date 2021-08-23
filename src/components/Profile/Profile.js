@@ -14,7 +14,7 @@ const Profile = () => {
         const getSearchTranslations = async () => {
             let name = getUserLocalStorage();
             try {
-                let response = await fetch(`http://localhost:3004/profile?name=${name.name}`)
+                let response = await fetch(`https://ass6fakeserver-mtl-app.herokuapp.com/profile?name=${name.name}`)
                 let userData = await response.json();
                 setTranslations(userData[0].translations);
 
@@ -32,7 +32,7 @@ const Profile = () => {
         let userTranslationSearches;
         let userData;
         try {
-            let response = await fetch(`http://localhost:3004/profile?name=${getUserLocalStorage().name}`)
+            let response = await fetch(`https://ass6fakeserver-mtl-app.herokuapp.com/profile?name=${getUserLocalStorage().name}`)
             userData = await response.json();
             userTranslationSearches = userData[0].translations;
         } catch (error) {
@@ -47,7 +47,7 @@ const Profile = () => {
             "translations": userTranslationSearches
         }
 
-        await fetch(`http://localhost:3004/profile/${userData[0].id}`, {
+        await fetch(`https://ass6fakeserver-mtl-app.herokuapp.com/profile/${userData[0].id}`, {
             method: 'PUT',
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(putRequest)

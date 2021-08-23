@@ -47,14 +47,14 @@ const Translation = () => {
          * Get user from database.
          */
         try {
-            const response = await fetch(`http://localhost:3004/profile?name=${name.name}`)
+            const response = await fetch(`https://ass6fakeserver-mtl-app.herokuapp.com/profile?name=${name.name}`)
             userData = await response.json();
         } catch (error) {
             console.log(error);
         }
 
         /**
-         * Check it the user object have a translations array, otherwise create one and set the PUT-body.
+         * Update the translations array in the object and sets the putRequest.
          */
         let userTranslations = userData[0].translations;
         userTranslations.push(sentence)
@@ -62,24 +62,11 @@ const Translation = () => {
             "name": name.name,
             "translations": userTranslations
         }
-        /* if (userData[0].translations) {
-            let userTranslations = userData[0].translations;
-            userTranslations.push(sentence)
-            putRequest = {
-                "name": name.name,
-                "translations": userTranslations
-            }
-        } else {
-            putRequest = {
-                "name": name.name,
-                "translations": [sentence]
-            }
-        } */
 
         /**
          * Update the user with the new translated word.
          */
-        await fetch(`http://localhost:3004/profile/${userData[0].id}`, {
+        await fetch(`https://ass6fakeserver-mtl-app.herokuapp.com/profile/${userData[0].id}`, {
             method: 'PUT',
             headers: { "Content-type": "application/json" },
             body: JSON.stringify(putRequest)
