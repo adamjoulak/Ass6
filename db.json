@@ -1,71 +1,12 @@
 {
   "profile": [
     {
-      "name": "Marcus",
-      "translations": [
-        "Elin",
-        "Och",
-        "Mark",
-        "hej"
-      ],
+      "name": "marcus",
       "id": 1
     },
     {
-      "name": "kalle",
+      "name": "erik",
       "id": 2
-    },
-    {
-      "name": "Elin",
-      "translations": [
-        "ord",
-        "bajs"
-      ],
-      "id": 3
-    },
-    {
-      "name": "ouh",
-      "id": 4
-    },
-    {
-      "name": "Marcus",
-      "id": 5
-    },
-    {
-      "name": "jhgv",
-      "id": 6
-    },
-    {
-      "name": "iuagef",
-      "translations": [
-        "aefae",
-        "aef",
-        "aefcecece"
-      ],
-      "id": 7
-    },
-    {
-      "name": "marucs",
-      "translations": [
-        "aeda",
-        "aefaef",
-        "aefaef",
-        "fffff"
-      ],
-      "id": 8
-    },
-    {
-      "name": "marcus",
-      "translations": [
-        "adawd",
-        "sdsdsd",
-        "asdc",
-        "ada"
-      ],
-      "id": 9
-    },
-    {
-      "name": "Marcus",
-      "id": 10
     }
   ]
 }
