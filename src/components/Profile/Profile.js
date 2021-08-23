@@ -3,7 +3,7 @@ import './Profile.css';
 import { useEffect, useState } from 'react';
 
 const Profile = () => {
-    /* const pageLoaded = useRef(false); */
+    
     const [translation, setTranslations] = useState([])
 
     useEffect(() => {
@@ -21,9 +21,43 @@ const Profile = () => {
         getSearchTranslations();
     }, []);
 
+    const clearTranslations = async () => {
+        let userTranslationSearches;
+        let userData;
+        try {
+            let response = await fetch(`http://localhost:3004/profile?name=${getUserLocalStorage().name}`)
+            userData = await response.json();
+            userTranslationSearches= userData[0].translations;
+        } catch (error) {
+            console.log(error);
+        }
+
+        for (let i = 0; i < userTranslationSearches.length; i++) {
+            userTranslationSearches[i] = "Deleted"            
+        }
+        let putRequest = {
+            "name": userData[0].name,
+            "translations": [userTranslationSearches]
+        }
+
+         await fetch(`http://localhost:3004/profile/${userData[0].id}`, {
+            method: 'PUT',
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(putRequest)
+        })
+            .then(async (response) => {
+                if (!response.ok) {
+                    const { error = "An unknown error occurred" } = await response.json();
+                    throw new Error(error);
+                }
+                console.log(putRequest + " added to database.")
+            })  
+    }
+
     const text =
         translation.map((i, key) => {
-            return <p key={key}>{i}</p>
+            /* if (i < 10) */
+                return <li key={key}>{i}</li>
         });
 
 
@@ -32,6 +66,7 @@ const Profile = () => {
         <div>
             <p>Translations</p>
             {text}
+            <button onClick={clearTranslations}>Clear</button>
         </div>
 
     );
