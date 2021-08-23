@@ -8,16 +8,15 @@ const Translation = () => {
     const [imgs, setRenderPics] = useState([])
 
     /**
-     * 
-     * @param {*} event 
+     * Sets the input i useState, sentence.
      */
     const handleTranslation = (event) => { //set input 
         setSentence(event.target.value)
     }
 
     /**
-     * 
-     * @param {*} event 
+     * Method that listends o the sumbit button. Loops through the word and adds it to imgs with the right ending (.png)
+     * and saves the word to database.
      */
     const onSubmit = (event) => {
         event.preventDefault() //no reload 
@@ -37,14 +36,13 @@ const Translation = () => {
     }
 
     /**
-     * 
-     * @param {*} sentence 
+     * Method that saves the searched word to the database.
      */
     const saveToDatabase = async (sentence) => {
         let name = getUserLocalStorage();
         let userData;
         let putRequest;
-        
+
         /**
          * Get user from database.
          */
@@ -58,7 +56,13 @@ const Translation = () => {
         /**
          * Check it the user object have a translations array, otherwise create one and set the PUT-body.
          */
-        if (userData[0].translations) {
+        let userTranslations = userData[0].translations;
+        userTranslations.push(sentence)
+        putRequest = {
+            "name": name.name,
+            "translations": userTranslations
+        }
+        /* if (userData[0].translations) {
             let userTranslations = userData[0].translations;
             userTranslations.push(sentence)
             putRequest = {
@@ -70,8 +74,8 @@ const Translation = () => {
                 "name": name.name,
                 "translations": [sentence]
             }
-        }
-        
+        } */
+
         /**
          * Update the user with the new translated word.
          */
@@ -86,7 +90,7 @@ const Translation = () => {
                     throw new Error(error);
                 }
                 console.log(putRequest + " added to database.")
-            }) 
+            })
     }
 
 

@@ -13,8 +13,7 @@ const Login = () => {
     })
 
     /**
-     * 
-     * @param {*} event 
+     *  Method that sets the input for username to useState name.
      */
     const onNameChanged = (event) => { //set input username to name state
         setName({
@@ -24,8 +23,7 @@ const Login = () => {
     }
 
     /**
-     * 
-     * @param {*} event 
+     *  Method that adds name to database.
      */
     const onSubmitClicked = async (event) => { //set name to props
         event.preventDefault() //no reload
@@ -51,7 +49,10 @@ const Login = () => {
             fetch('http://localhost:3004/profile', {
                 method: 'POST',
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify(name)
+                body: JSON.stringify({
+                    name: name,
+                    translations: []
+                })
             })
                 .then(async (response) => {
                     if (!response.ok) {
@@ -67,19 +68,6 @@ const Login = () => {
             history.replace("/translation")
         }
     };
-
-/*     const nameExistsInDatabase = async (name) => {
-        try {
-            const response = await fetch(`http://localhost:3004/profile?name=${name.name}`)
-            if (!response.ok) {
-                return false;
-            } else {
-                return true;
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    } */
 
     return (
         <Container className="body-startup">
