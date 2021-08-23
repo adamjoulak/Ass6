@@ -1,4 +1,26 @@
-body {
+@font-face {
+  font-family: "LoveYouLikeASister";
+  src: local("LoveYouLikeASister"),
+   url("./fonts/Love_Ya_Like_A_Sister/LoveYaLikeASister-Regular.ttf") format("truetype");
+} 
+
+@font-face {
+font-family: "SanchezItalic";
+src: local("SanchezItalic"),
+url("./fonts/Sanchez/Sanchez-Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SanchezRegular";
+  src: local("SanchezRegular"),
+   url("./fonts/Sanchez/Sanchez-Regular.ttf") format("truetype");
+}
+
+#body {
+  background-color: #FFC75F;
+}
+
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,3 +33,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+ */

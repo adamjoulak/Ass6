@@ -1,48 +1,104 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import LogoHello from '../../assets/LostInTranslation_Resources/Logo-Hello.png';
+import './Login.css';
+import { setUserLocalStorage } from '../../local-storage/LocalStorage';
 
 const Login = () => {
-
-    const [name, setName] = useState("");
+    const history = useHistory()
     
+    const [name, setName] = useState({
+        name: null
+    })
 
-    function validateForm() { //validate user input
-        return name.length > 0;
-    };
-
-    const onSubmitClicked = async (e) =>{ //set name to props
-        console.log(e.target.value)
-        console.log("hej")
-         try {
-            const response = await fetch('http://localhost:3004/profile', {
-            metod: 'POST',
-            body: JSON.stringify({
-                name: e.target.value
-            })
+    /**
+     * 
+     * @param {*} event 
+     */
+    const onNameChanged = (event) => { //set input username to name state
+        setName({
+            ...name,
+            [event.target.id]: event.target.value
         })
-        const content = await response.json();
-        } catch (error) {
-            console.log('Error: ', error)
-        } 
-
-    };
-
-    function onNameChanged(e){ //set input username to name state
-        setName(e.target.value.trim());
-        
     }
 
+    /**
+     * 
+     * @param {*} event 
+     */
+    const onSubmitClicked = async (event) => { //set name to props
+        event.preventDefault() //no reload
+        let exists = false;
+
+        //check if name alreadu exists in database
+        try {
+            const response = await fetch(`http://localhost:3004/profile?name=${name.name}`)
+            const data = await response.json()
+            if (data.length < 1) {
+                exists = false;
+                console.log(exists)
+            } else {
+                exists = true;
+                console.log(exists)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        //add name to database if it does not exists in database and set localstorage.
+        if (exists === false) {
+            fetch('http://localhost:3004/profile', {
+                method: 'POST',
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(name)
+            })
+                .then(async (response) => {
+                    if (!response.ok) {
+                        const { error = "An unknown error occurred" } = await response.json();
+                        throw new Error(error);
+                    }
+                    console.log(JSON.stringify(name) + " added to db!")
+                    setUserLocalStorage(name)
+                    history.replace("/translation")
+                })
+        } else if (exists === true) {
+            setUserLocalStorage(name)
+            history.replace("/translation")
+        }
+    };
+
+/*     const nameExistsInDatabase = async (name) => {
+        try {
+            const response = await fetch(`http://localhost:3004/profile?name=${name.name}`)
+            if (!response.ok) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    } */
+
     return (
-        <Form>
-             <Form.Group>
-                <Form.Label>Username</Form.Label>
-            </Form.Group>
-            
-            <Form.Group>
-                <Form.Control className="mb-3" autoFocus type="username" placeholder="what yo name?"  value={name} onChange={ onNameChanged }/>
-            </Form.Group>
-            <Button className="btn btn-primary btn-lg" variant="info" type="submit" disabled={ !validateForm() } onClick={ onSubmitClicked }>Submit</Button>
-        </Form>
+        <Container className="body-startup">
+            <img src={LogoHello} alt="Logo-Hello" />
+
+            <Form onSubmit={onSubmitClicked}>
+                <Row>
+                    <Col md={{ span: 3, offset: 3 }}>
+                        <Form.Control placeholder="Name" type="text" id="name" onChange={onNameChanged} />
+                    </Col>
+                    <Col>
+                        <Button type="Submit" className="mb-2">
+                            Submit
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
+        </Container>
+
     )
 }
 

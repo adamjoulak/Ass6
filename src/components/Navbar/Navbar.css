@@ -1,0 +1,34 @@
+.navbar {
+  background-color: #FFC75F;
+  color: #969696 ;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.row{
+  display: flex;
+}
+
+.col-sm-9 {
+  width: 75%;
+}
+.col-sm-3 {
+  width: 25%;
+}
+.d-block {
+  display: block!important;
+}
+.font-face-lylas {
+font-size: 35px;
+}
+
+.SanchezRegular {
+text-align: right;
+}
+
+.nav-container {
+display: block;
+}
